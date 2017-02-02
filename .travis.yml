@@ -5,7 +5,11 @@ go:
 
 branches:
   only:
-    - master
+    - multiple-http-dns-bind-travis
+
+before_install:
+  - RepoName=`basename $PWD`; SrcDir=`dirname $PWD`; DestDir="`dirname $SrcDir`/hashicorp"
+  - if [[ "$SrcDir" != "$DestDir" ]]; then mv "$SrcDir" "$DestDir"; cd ../../hashicorp/$RepoName; export TRAVIS_BUILD_DIR=`dirname $TRAVIS_BUILD_DIR`/$RepoName; fi
 
 script:
   - make ci
